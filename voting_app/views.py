@@ -23,6 +23,7 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
 from voting_app.models import Topic
+from voting_app.serializer import TopicSerializer
 
 
 def index(request):

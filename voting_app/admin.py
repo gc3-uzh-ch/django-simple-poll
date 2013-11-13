@@ -22,5 +22,7 @@ from django.contrib import admin
 from voting_app.models import Topic
 
 
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('name', 'votes', 'hide')
 
-admin.site.register(Topic)
+admin.site.register(Topic, TopicAdmin)

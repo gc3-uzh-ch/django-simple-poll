@@ -23,7 +23,8 @@ from django.db import models
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0,blank=True)
+    votes = models.IntegerField(default=0, blank=True)
+    hide = models.BooleanField(default=False, blank=True)
 
     def __unicode__(self):
         return self.name

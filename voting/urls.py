@@ -13,6 +13,7 @@ admin.autodiscover()
 class TopicViewSet(viewsets.ModelViewSet):
     model = Topic
     serializer_class = TopicSerializer
+    queryset = Topic.objects.all().filter(hide=False)
 
 router = routers.DefaultRouter()
 router.register(r'topics', TopicViewSet)
@@ -20,7 +21,8 @@ router.register(r'topics', TopicViewSet)
 urlpatterns = patterns('',
     url(r'^$', 'voting_app.views.index', name='index'),
     url(r'^', include(router.urls)),
+    url(r'^vote/$', Vote.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^vote/$', Vote.as_view())
 )
