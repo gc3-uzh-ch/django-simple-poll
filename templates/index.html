@@ -31,7 +31,7 @@
         <div class="starter-template">
             <h1>Proposed Topics</h1>
             <table class="table">
-                <tr ng-repeat="topic in topics| orderBy:'votes':true">
+                <tr ng-repeat="topic in topics| orderBy:['-votes', 'name']" class="repeat-item">
                     <td>{[ topic.name ]}</td>
                     <td>Votes: <span class="label label-primary">{[ topic.votes ]}</span></td>
                     <td><button ng-if="check_voted(topic.id)" ng-click="like(topic.id)" class="btn btn-success" name="like!">I like this!</button>&nbsp;</td>
@@ -54,6 +54,12 @@
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
     <script>window.angular || document.write('{% static 'js/angular.min.js' %}')</script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-animate.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        angular.module('voting').constant('urls', {
+            base: "{{ url }}",
+        });
+    </script>
 </body>
 </html>

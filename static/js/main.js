@@ -1,8 +1,8 @@
-function VotingCtrl($scope, $http, $templateCache) {
+function VotingCtrl($scope, $http, $templateCache, urls) {
     $scope.topics = [];
 
     $scope.get_all_topics = function(){
-        $http.get('/topics').success(function(data, status){
+        $http.get(urls.base + '/topics').success(function(data, status){
             if (data){
                 $scope.topics = data;
             }
@@ -11,15 +11,15 @@ function VotingCtrl($scope, $http, $templateCache) {
 
     $scope.addTopic = function(){
         var topic = {'name': $scope.new_topic}
-        $http.post('/topics/', topic).success(function(data, status){
-            $scope.get_all_topics();
+        $http.post(urls.base + '/topics/', topic).success(function(data, status){
+            $scope.topics.push(data);
             $scope.new_topic = "";
         })
     };
 
     $scope.like = function(id){
         var vote = {'id': id, }
-        $http.post('/vote/', vote).success(function(data, status){
+        $http.post(urls.base + '/vote/', vote).success(function(data, status){
             $scope.update_voted_topics(id)
             $scope.get_all_topics();
         })
@@ -62,7 +62,7 @@ function VotingCtrl($scope, $http, $templateCache) {
  *  - sets the template notation to {[]} to not conflict with the django template notation
  *  - renames the header and cookie name to meet the change csrf implementation
  */
-angular.module('voting', []).config(function($interpolateProvider, $httpProvider){
+angular.module('voting', ['ngAnimate']).config(function($interpolateProvider, $httpProvider){
         // change angular notation symbol to not conflict django template language
         $interpolateProvider.startSymbol('{[').endSymbol(']}');
 

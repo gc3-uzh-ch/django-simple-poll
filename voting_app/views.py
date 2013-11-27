@@ -22,13 +22,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 
+from voting import settings
 from voting_app.models import Topic
 from voting_app.serializer import TopicSerializer
 
 
 def index(request):
 
-    context = {}
+    context = {'url': settings.BASE_URL}
     return render(request, 'index.html', context)
 
 
